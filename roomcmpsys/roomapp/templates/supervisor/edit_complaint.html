@@ -1,0 +1,53 @@
+{% extends 'supervisor/base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% crispy form helper %}
+{% block body %}
+<div class="container-fluid">
+        <div class="row">
+          <div class="col-12 mb-3">
+          <div class="col-12 mb-3">
+              <div id="content-wrapper">
+        <div class="container-fluid">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="">Complaint Subject : {{ object.subject }} </a>
+            </ol>
+            <div class="card mb-3">
+                <div class="card-header">
+                    <i class="fas fa-table text-warning"></i>
+                    Details Of Complaints
+                </div>
+                <div class="card-body">
+                    {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }} alert-dismissible" role="alert">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+
+    <div class="row">
+        <div class="col-12">
+            <form method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    {{form.label_tag}}
+                    {{ form.is_attended|as_crispy_field }}
+                </div>
+                {% comment %} {% for field in form %}
+                    <div class="form-group">
+                        {{ field.label_tag }}
+                        {{ field.is_attended|as_crispy_field }}
+                    </div>
+                {% endfor %} {% endcomment %}
+                <input type="submit" {% if request.path == '/new' %} value="Add" {% else %} value="Update" {% endif %} class="btn btn-success"/>
+                <a href="{% url 'smcomplain' %}"><button type="button" class="btn btn-secondary">Back</button></a>
+            </form>
+        </div>
+    </div>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+{% endblock %}
