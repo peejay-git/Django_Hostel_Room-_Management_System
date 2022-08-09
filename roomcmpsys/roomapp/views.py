@@ -162,36 +162,55 @@ def asearch(request):
         return redirect('dashboard')
     else:
         a = data
-        qs5 = models.Complain.objects.filter(id__iexact=a).distinct()
-        qs7 = models.Complain.objects.all().filter(id__contains = a)
-        qs8 = models.Complain.objects.select_related().filter(id__contains=a).distinct()
-        qs9 = models.Complain.objects.filter(id__startswith=a).distinct()
-        qs10 = models.Complain.objects.filter(id__endswith=a).distinct()
-        qs11 = models.Complain.objects.filter(id__istartswith=a).distinct()
-        qs12 = models.Complain.objects.all().filter(id__icontains=a)
-        qs13 = models.Complain.objects.filter(id__iendswith=a).distinct()
+        # search by id
+        qs1 = models.Complain.objects.filter(id__iexact=a).distinct()
+        qs2 = models.Complain.objects.all().filter(id__contains = a)
+        qs3 = models.Complain.objects.select_related().filter(id__contains=a).distinct()
+        qs4 = models.Complain.objects.filter(id__startswith=a).distinct()
+        qs5 = models.Complain.objects.filter(id__endswith=a).distinct()
+        qs6 = models.Complain.objects.filter(id__istartswith=a).distinct()
+        qs7 = models.Complain.objects.all().filter(id__icontains=a)
+        qs8 = models.Complain.objects.filter(id__iendswith=a).distinct()
         
-        files = itertools.chain(qs5,qs7, qs8, qs9, qs10, qs11, qs12, qs13)
+        # search by category
+        qs9 = models.Complain.objects.filter(category__iexact=a).distinct()
+        qs10 = models.Complain.objects.all().filter(category__contains = a)
+        qs11 = models.Complain.objects.select_related().filter(category__contains=a).distinct()
+        qs12 = models.Complain.objects.filter(category__startswith=a).distinct()
+        qs13 = models.Complain.objects.filter(category__endswith=a).distinct()
+        qs14 = models.Complain.objects.filter(category__istartswith=a).distinct()
+        qs15 = models.Complain.objects.all().filter(category__icontains=a)
+        qs16 = models.Complain.objects.filter(category__iendswith=a).distinct()
+        
+        # search by hostel
+        qs17 = models.Complain.objects.filter(hostel__name__iexact=a).distinct()
+        qs18 = models.Complain.objects.all().filter(hostel__name__contains = a)
+        qs19 = models.Complain.objects.select_related().filter(hostel__name__contains=a).distinct()
+        qs20 = models.Complain.objects.filter(hostel__name__startswith=a).distinct()
+        qs21 = models.Complain.objects.filter(hostel__name__endswith=a).distinct()
+        qs22 = models.Complain.objects.filter(hostel__name__istartswith=a).distinct()
+        qs23 = models.Complain.objects.all().filter(hostel__name__icontains=a)
+        # qs24 = models.Complain.objects.filter(hostel__name__iendswith=a).distinct()
+        
+        complaints = itertools.chain(qs1, qs2, qs3, qs4, qs5, qs6, qs7, qs8, qs9,qs10, qs11, qs12, qs13, qs14, qs15, qs16, qs17, qs18, qs19, qs20, qs21,qs22, qs23)
         res = []
-        for i in files:
+        for i in complaints:
             if i not in res:
                 res.append(i)
         
-        word = "Searched Result :"
-        print("Result")
-        
+        word = "Searched Result :"        
         print(res)
-        files = res
+        complaints = res
         
         page = request.GET.get('page', 1)
-        paginator = Paginator(files, 10)
+        paginator = Paginator(complaints, 10)
         try:
-            files = paginator.page(page)
+            complaints = paginator.page(page)
         except PageNotAnInteger:
-            files = paginator.page(1)
+            complaints = paginator.page(1)
         except EmptyPage:
-            files = paginator.page(paginator.num_pages)
+            complaints = paginator.page(paginator.num_pages)
         
-        if files:
-            return render(request, 'dashboard/search_result.html',{'files':files, 'word':word})
-        return render(request, 'dashboard/search_result.html', {'files':files, 'word':word})
+        if complaints:
+            return render(request, 'supervisor/search_result.html',{'complaints':complaints, 'word':word})
+        return render(request, 'supervisor/search_result.html', {'complaints':complaints, 'word':word})
