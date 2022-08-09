@@ -45,7 +45,7 @@
                                     {% if complains %}
                                         {% for complain in complains %}
                                             <tr>
-                                                <td>{{ complain.hostel }}</td>
+                                                <td>{{ complain.user.hostel }}</td>
                                                 <td>{{ complain.category }}</td>
                                                 <td>{{ complain.subject}}</td>
                                                 <td>{{ complain.desc}}</td>
