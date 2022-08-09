@@ -27,8 +27,8 @@ from django.contrib.auth.decorators import login_required
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit
 from django.db.models import Q
-
-
+from django.contrib.auth.views import PasswordChangeView
+from django.contrib.auth.forms import PasswordChangeForm
 
 def login_form(request):
     return render(request, 'roomapp/login.html')
@@ -55,7 +55,11 @@ def loginView(request):
         else:
             messages.info(request, "Invalid Username or password")
             return redirect('home')
-    
+
+
+class PasswordChangeView(PasswordChangeView):
+    form_class = PasswordChangeForm
+    success_url = reverse_lazy('home')
 
 
 # student view

@@ -8,6 +8,7 @@ urlpatterns = [
     path('', views.login_form, name="home"),
     path('login/', views.loginView, name="login"),
     path('logout/', views.logoutView, name="logout"),
+    path("password/", views.PasswordChangeView.as_view(template_name='roomapp/change_password.html'), name='change_password'),
     
     # Hall Supervisor urls
     path('supervisor/', views.supervisor, name="supervisor"),

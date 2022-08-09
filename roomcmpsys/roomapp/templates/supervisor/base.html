@@ -72,22 +72,30 @@
 
             <!-- Divider -->
             <hr class="sidebar-divider">
-
-
+    
             <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item active">
-                {% if user.is_authenticated %}
-                    <a class="nav-link" href="{% url 'home' %}">
-                    <i class="fa fa-sign-out"></i>
-                    <span>Logout</span></a>
-                {% else %}
-                    <a class="nav-link" href="{% url 'home' %}">
-                    <i class="fas fa-fw fa-sign-in"></i>
-                    <span>Login</span></a>
-                {% endif %}
-        </li>
-
-           
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
+                    aria-expanded="true" aria-controls="collapsePages">
+                    <i class="fas fa-fw fa-cog"></i>
+                    <span>Settings</span>
+                </a>
+                <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Login Screens:</h6>
+                        <a class="collapse-item" href="{% url 'change_password' %}">
+                    <span>Change Password</span></a>
+                        {% if user.is_authenticated %}
+                            <a class="collapse-item" href="{% url 'home' %}" data-toggle="modal" data-target="#logoutModal">Logout</a>
+                        {% else %}
+                            <a class="collapse-item" href="{% url 'home' %}">Login</a>
+                        {% endif %}
+                        
+                        <a class="collapse-item" href="#">Forgot Password</a>
+                        <div class="collapse-divider"></div>
+                    </div>
+                </div>
+            </li>
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
        
