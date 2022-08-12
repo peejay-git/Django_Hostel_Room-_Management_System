@@ -40,11 +40,13 @@
                     <div class="card-body p-0">
                         <!-- Nested Row within Card Body -->
                         <div class="row">
-                            <div class="col-lg-6 d-none d-lg-block"></div>
+                            <div class="col-lg-6 d-none d-lg-block" style="background-image: url('{% static 'img/bg-image.jpg' %}'); background-position:center;background-size:cover;">
+                              <center style="padding-top:40%;"><h1 class="text-white">Hostel Room Complaint System</h1></center>
+                            </div>
                             <div class="col-lg-6">
                                 <div class="p-5">
                                     <div class="text-center">
-                                        <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
+                                        <h1 class="h4 text-gray-900 mb-4">Welcome Back! Login!!</h1>
                                     </div>
                                     <form class="user" method="POST" action="{% url 'login' %}">
                                         {% csrf_token %}
